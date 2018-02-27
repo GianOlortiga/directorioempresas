@@ -383,10 +383,6 @@ ul{
         right: 0;
         top: 0;
     }
-    .anuncio{
-        width: 90%;
-        margin: 30px auto;
-    }
     .w_icons{
         height: 190px;
     }
@@ -394,6 +390,12 @@ ul{
 @media (min-width: 992px){
     .footer {
         width: 970px;
+    }
+}
+@media (max-width: 768px){
+    .anuncio{
+        width: 90%;
+        margin: 30px auto;
     }
 }
 @media (max-width: 520px){
