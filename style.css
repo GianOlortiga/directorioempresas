@@ -227,7 +227,7 @@ ul{
     background: #fff;
     padding: 20px;
     border-radius: 5px;
-    width: 430px;
+    width: 112%;
 }
 .f_cons_title {
     font-size: 19px;
@@ -397,11 +397,19 @@ ul{
         width: 90%;
         margin: 30px auto;
     }
+    #post_empresa {
+        position: relative;
+        left: 0;
+        z-index: 9;
+    }
+    #f_empresa {
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        width: 100%;
+    }
 }
 @media (max-width: 520px){
-    #post_empresa{
-        left: 9%;
-    }
     .w_title span{
         font-size: 30px;
     }
@@ -418,12 +426,6 @@ ul{
 }
 @media (max-width: 480px){
     .brand{
-        width: auto;
-    }
-    #post_empresa{
-        left: 10%;
-    }
-    #f_empresa{
         width: auto;
     }
     .w_title span{
@@ -443,18 +445,15 @@ ul{
     
 }
 @media (max-width: 420px){
-    #post_empresa {
-        left: 5%;
-    }
     .textLogo{
         font-size: 19px;
+        text-align: center;
     }
     .brand{
         margin-left: 0;
     }
-}
-@media (max-width: 390px){
-    #f_empresa {
-        width: 340px;
+    #f_empresa{
+        width: 96%;
+        margin: 0 3%;
     }
 }
