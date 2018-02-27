@@ -442,3 +442,19 @@ ul{
     }
     
 }
+@media (max-width: 420px){
+    #post_empresa {
+        left: 5%;
+    }
+    .textLogo{
+        font-size: 19px;
+    }
+    .brand{
+        margin-left: 0;
+    }
+}
+@media (max-width: 390px){
+    #f_empresa {
+        width: 340px;
+    }
+}
