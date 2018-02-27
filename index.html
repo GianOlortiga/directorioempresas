@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//ES" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Directorio de empresas"/>
+	<meta name="robots" content="index"/>
+	<meta name="googlebot" content="index,follow"/>
+	<meta name="keywords" content="directorio empresas"/>
+	<title>Directorio de Empresas</title>
+	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400|Hind:500">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	
+</head>
+<body class="msWebsiteView">
+	<div id="main" class="global-wrapper">
+		<div class="hero hero--first">
+			<div id="hero__backdrop" class="hero__backdrop" style="background-image: url(portada.jpg)">
+				<div class="hero__overlay"></div>
+			</div>
+			<div class="hero-wrap">
+				<nav class="navbarra">
+					<div class="navbar__inner">
+						<div class="brand">
+							<p class="textLogo">Directorio Empresarial Trujillo</p>
+						</div>
+						<ul class="navbar__nav">
+							<li class="navbar__item">
+								<span class="glyphicon glyphicon-earphone"></span>
+								<a href="tel:+51-927-858-685"><span>CONTACTOS</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+				<div class="hero-wrap__content">
+					<div id="post_empresa">
+						<div id="f_empresa">
+							<p class="f_cons_title">¡Publica tu Empresa rápido y gratis!</p>
+							<form v-on:submit.prevent="addBussines" class="f_empresa">
+								<input type="text" v-model="newBussines.name" placeholder="Nombre de tu empresa" required>
+								
+								<input type="text" v-model="newBussines.address" placeholder="Dirección" required>
+								<input type="number" v-model="newBussines.phone" placeholder="Teléfono" required>
+								<textarea v-model="newBussines.desc" placeholder="Dile al público que encontrará en tu empresa" required></textarea>
+								
+								<input type="submit" value="Publicar">
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div id="anuncios">
+			<div class="container">
+				<div class="row">
+					<h1 class="w_title"><span>Empresas Anunciadas</span></h1>
+					<div class="anuncio col-sm-12" v-for="empresa in bussines">
+						<div class="row">
+							<div class="col-sm-3">
+								<i class="w_icons far fa-building"></i>
+							</div>
+							<div class="col-sm-9">
+								<div class="w_desc">
+									<div class="w__bord">
+										<h2>{{empresa.name}}</h2>
+									</div>
+									<p>{{empresa.desc}} 
+									</p>
+									<div class="w__bord_top">
+										<address>
+											<strong><i class="fas fa-map-marker-alt"></i> Direccion: </strong>
+											{{empresa.address}}
+										</address>
+										<div>
+											<strong><i class="fas fa-phone-volume"></i>  Teléfono: </strong>
+											<a v-bind:href="empresa.phone" class="tel"> {{empresa.phone}}</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="footer">
+			<ul class="footer-menu">
+				<li class="footer-menu__item">
+					<a href="index.php">© Directorio Empresarial</a>
+				</li>
+				<li class="footer-menu__item">Desarrollado por <a class="brandy" href="">Gian Olórtiga</a>
+				</li>
+			</ul>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vuefire/1.4.5/vuefire.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+		
+  		var config = {
+    	apiKey: "AIzaSyD-U6dppUn0l7_ZGDZdTQGn1QbEpss8eT8",
+    	authDomain: "vuejsfirebase-a60c5.firebaseapp.com",
+   		databaseURL: "https://vuejsfirebase-a60c5.firebaseio.com",
+    	projectId: "vuejsfirebase-a60c5",
+    	storageBucket: "vuejsfirebase-a60c5.appspot.com",
+    	messagingSenderId: "795276103704"
+  		};
+
+		var app = firebase.initializeApp(config);
+
+		var db = app.database();
+
+		var linksRef = db.ref('links');
+
+		new Vue({
+			el: '#main',
+			firebase: {
+			    bussines: linksRef
+			},
+			data: {
+				
+				newBussines: { 
+						name:'',
+						desc:'',
+						address: '',
+						phone: ''
+				}
+			},
+			methods: {
+				addBussines: function (){
+					linksRef.push(this.newBussines);
+					this.newBussines.name = '';
+			      	this.newBussines.desc = '';
+			      	this.newBussines.address = '';
+			      	this.newBussines.phone = '';
+					alert('¡Felicidades! Su empresa se ha publicado');
+					$('html, body').animate({
+			        scrollTop: $('.footer').offset().top}, 1000);
+				}
+			}
+		});		
+			
+	});
+
+	</script>
+</body>
+</html>
